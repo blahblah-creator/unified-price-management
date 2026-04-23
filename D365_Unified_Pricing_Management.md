@@ -651,6 +651,685 @@ EXTERNAL SYSTEMS          PRICING ENGINE          D365 MODULES
 
 ---
 
+## 11. REAL-WORLD USE CASES (20 SCENARIOS)
+
+### Use Case 1: Multi-Tier B2B Volume Pricing
+
+**Scenario**: Manufacturing company selling industrial components
+
+**Configuration**:
+```
+Product: Industrial Motor X-500
+Base List Price: $5,000
+
+Customer Tier 1 (Distributors)    | Quantity Brackets
+├─ 1-49 units: -10%               ├─ 1-9: List Price
+├─ 50-99 units: -15%              ├─ 10-49: -5%
+└─ 100+ units: -20%               └─ 50+: -12%
+
+Customer Tier 2 (Retailers)       | Quantity Brackets
+├─ 1-19 units: -5%                ├─ 1-4: List Price
+├─ 20-49 units: -8%               └─ 5+: -8%
+└─ 50+ units: -12%
+```
+
+**Result**: A distributor ordering 150 units gets: $5,000 × 0.80 = $4,000/unit
+
+---
+
+### Use Case 2: Dynamic E-Commerce Pricing
+
+**Scenario**: Online retailer adjusting prices based on demand
+
+**Configuration**:
+```
+Product: Smart Watch Pro
+Base Price: $299
+
+Demand Level          Adjustment    Inventory Level      Adjustment
+├─ Low (<100/day)     -10%          ├─ High (>500 units) -5%
+├─ Medium (100-500)   Base Price    ├─ Medium (100-500)  Base Price
+└─ High (>500/day)    +15%          └─ Low (<100)        +10%
+
+Flash Sale Rules:
+├─ Monday 9 AM - 2 PM: -25%
+├─ Thursday Evening: -20%
+└─ Sunday Afternoon: -15%
+```
+
+**Result**: Product priced at $299, but dynamically adjusted based on real-time demand and inventory
+
+---
+
+### Use Case 3: Geographic Price Variation
+
+**Scenario**: Global SaaS company with region-specific pricing
+
+**Configuration**:
+```
+Software License - Enterprise Plan
+Base Price (USD): $100,000/year
+
+North America         │ Europe          │ Asia-Pacific    │ Emerging Markets
+├─ USA: Base          │ ├─ EUR: +8%     │ ├─ AUS: -5%     │ ├─ India: -40%
+├─ Canada: +2%        │ ├─ UK: +5%      │ ├─ JP: Base      │ ├─ Brazil: -25%
+└─ Mexico: -15%       │ └─ DE: Base     │ └─ CN: -30%      │ └─ Vietnam: -35%
+```
+
+**Result**: Same product costs different amounts based on geographic region
+
+---
+
+### Use Case 4: Customer Loyalty Pricing
+
+**Scenario**: Retail chain rewarding long-term customers
+
+**Configuration**:
+```
+All Products (Automatic Loyalty Tier Detection)
+
+Loyalty Status       Annual Spend    Discount Applied
+├─ Bronze (1-2yrs)  <$5,000         3% discount
+├─ Silver (2-5yrs)  $5,000-$25,000  7% discount
+├─ Gold (5-10yrs)   $25,000-$100k   12% discount
+└─ Platinum (10+)   $100,000+       18% discount
+
+Birthday Month Bonus:
+└─ +5% additional discount during birthday month
+```
+
+**Result**: Long-time customer automatically receives appropriate loyalty pricing
+
+---
+
+### Use Case 5: Bundle/Mix & Match Pricing
+
+**Scenario**: Technology company selling bundled software solutions
+
+**Configuration**:
+```
+Bundle: Complete Office Suite
+
+Individual Pricing:
+├─ Word Premium: $129
+├─ Excel Advanced: $139
+├─ PowerPoint Pro: $119
+└─ Teams Enterprise: $149
+Total if Separate: $536
+
+Bundle Pricing Rules:
+├─ Buy 2 products: 10% off bundle
+├─ Buy 3 products: 20% off bundle
+├─ Buy all 4 products: 30% off bundle
+
+Applied Price: $536 × 0.70 = $375.20
+```
+
+**Result**: Customers incentivized to purchase complete bundle
+
+---
+
+### Use Case 6: Seasonal/Holiday Pricing
+
+**Scenario**: Retail apparel company with seasonal inventory management
+
+**Configuration**:
+```
+Winter Coat - Model 2024
+
+Normal Season (Jan-Sep):
+└─ List Price: $199
+
+Pre-Season (Oct-Nov):
+├─ Early Birds: Base + 5%
+└─ Regular: Base Price
+
+Peak Season (Dec):
+├─ Black Friday Week: -40%
+├─ Cyber Monday: -45%
+├─ Christmas Week: -30%
+└─ Regular December: Base + 10%
+
+Clearance (Jan-Feb):
+├─ January Sale: -60%
+└─ Final Clearance: -70%
+```
+
+**Result**: Optimized pricing throughout the product lifecycle
+
+---
+
+### Use Case 7: Contract/Negotiated Pricing
+
+**Scenario**: Enterprise software vendor with multi-year contracts
+
+**Configuration**:
+```
+Customer: Acme Corp
+Contract Period: 3 years (2024-2026)
+
+Year 1 (2024): $500,000 (discounted from $600k)
+Year 2 (2025): $525,000 (2% escalation)
+Year 3 (2026): $551,250 (2.5% escalation)
+
+Fixed Pricing Rule:
+├─ Contract ID: CNT-2024-001
+├─ Valid From: 2024-01-01
+├─ Valid Until: 2026-12-31
+├─ Auto-escalation: Yes (2% base, 2.5% year 3)
+└─ All orders for this customer: Fixed contract rate
+```
+
+**Result**: Fixed negotiated pricing protects both parties
+
+---
+
+### Use Case 8: Cost-Plus Pricing with Margin Control
+
+**Scenario**: Manufacturing company using cost-plus formulas
+
+**Configuration**:
+```
+Product: Custom Assembly Unit
+
+Cost Components:
+├─ Material Cost: $150
+├─ Labor Cost: $80
+├─ Overhead: $40
+├─ Contingency (10%): $27
+└─ Total Cost: $297
+
+Pricing Formula:
+├─ Minimum Margin: 25%
+├─ Target Margin: 35%
+├─ Maximum Discount: 20% from target
+
+Calculated Prices:
+├─ Minimum (25% margin): $297 × 1.25 = $371.25
+├─ Target (35% margin): $297 × 1.35 = $400.75
+└─ Maximum Discount (20% off): $400.75 × 0.80 = $320.60
+```
+
+**Result**: Pricing always maintains minimum margin requirements
+
+---
+
+### Use Case 9: Subscription/Recurring Pricing
+
+**Scenario**: Cloud service provider with monthly subscriptions
+
+**Configuration**:
+```
+SaaS Platform - Subscription Tiers
+
+Basic Plan:
+├─ Monthly: $99
+├─ Annual (prepay): $990 (-17% discount)
+└─ 2-Year: $1,870 (-21% discount)
+
+Professional Plan:
+├─ Monthly: $299
+├─ Annual (prepay): $2,990 (-0% discount)
+└─ 2-Year: $5,680 (-5% discount)
+
+Enterprise:
+├─ Custom Pricing
+├─ Volume discounts for seats
+└─ Negotiated rates
+
+Automatic Rules:
+├─ Annual prepay: 2 months free
+├─ 2-Year commit: 3 months free
+└─ Add-on services: 10% discount if committed
+```
+
+**Result**: Encourages longer-term commitments with greater discounts
+
+---
+
+### Use Case 10: Promotional/Flash Sale Pricing
+
+**Scenario**: E-commerce retailer running time-limited promotions
+
+**Configuration**:
+```
+Flash Sale: "48-Hour Tech Sale"
+Schedule: Friday 6 PM - Sunday 11:59 PM
+
+Electronics Category:
+├─ Laptops: -25% (Max discount: $500)
+├─ Tablets: -20% (Max discount: $100)
+├─ Accessories: -30% (Max discount: $50)
+└─ Bundled Items: Additional -10%
+
+Business Rules:
+├─ Cannot go below cost
+├─ Cannot combine with other promotions
+├─ Limit 5 items per customer
+├─ Notification: Email 24 hours before
+└─ Auto-revert pricing after window closes
+```
+
+**Result**: Limited-time offers drive urgency and sales volume
+
+---
+
+### Use Case 11: Geographic Channel Pricing
+
+**Scenario**: Automotive parts distributor with different channel strategies
+
+**Configuration**:
+```
+Auto Part: Premium Oil Filter
+
+Direct to Consumer (Web):
+├─ List Price: $24.99
+├─ Qty 1-5: List Price
+├─ Qty 6-10: -10%
+└─ Qty 11+: -15%
+
+Authorized Retailers:
+├─ Wholesale Cost: $14.99 (40% off retail)
+├─ Suggested Retail: $24.99
+├─ Minimum Markup: 30%
+
+Commercial Fleet Accounts:
+├─ Volume: 500+ units/month
+├─ Price: $12.99 (-48% from retail)
+├─ Auto-replenishment: Additional 2% discount
+
+Warehouse Distribution:
+├─ Bulk Orders (1000+ units): $11.99 (-52%)
+└─ Pallet Orders (5000+ units): $11.49 (-54%)
+```
+
+**Result**: Each channel gets appropriate margin structure
+
+---
+
+### Use Case 12: Trade Deal Pricing (EDI)
+
+**Scenario**: Consumer goods manufacturer managing trade deals
+
+**Configuration**:
+```
+Product: Snack Bar (Case of 24)
+
+Base Trade Price to Retailer: $14.00/case
+
+Active Trade Deals (Q2 2024):
+
+Deal 1: "Spring Promotion"
+├─ Period: April 1-30
+├─ Discount: $1.50/case (-10.7%)
+├─ Minimum Order: 10 cases
+└─ Trade Price: $12.50/case
+
+Deal 2: "Quarterly Bonus"
+├─ Period: Entire Q2
+├─ Volume Threshold: 100 cases/week
+├─ Discount: $2.00/case (-14.3%)
+└─ Trade Price: $12.00/case
+
+Deal 3: "New Customer Incentive"
+├─ Period: First 90 days
+├─ Discount: $2.50/case (-17.9%)
+└─ Trade Price: $11.50/case
+
+Rule Priority:
+└─ Customer gets best applicable deal
+```
+
+**Result**: Competitive trade pricing while managing margins
+
+---
+
+### Use Case 13: Referral Pricing
+
+**Scenario**: SaaS company incentivizing customer referrals
+
+**Configuration**:
+```
+Referral Program - Shared Discounts
+
+Referrer Benefits:
+├─ 1 Successful Referral: $100 credit
+├─ 3 Referrals: 10% lifetime discount
+├─ 5+ Referrals: 15% lifetime discount + free upgrade
+└─ VIP (10+): 20% discount + dedicated support
+
+Referred Customer Benefits:
+├─ First Purchase: 20% discount
+├─ Annual Subscription: 3 months free (when billed annually)
+└─ Locked-in Price: Pricing never increases for 2 years
+
+Both Parties Trigger:
+└─ Automatic application (no promo code needed)
+
+Example:
+├─ Referrer has 5 referrals: Gets 15% discount
+├─ New referred customer: Gets 20% + locked rates
+└─ System automatically applies both discounts
+```
+
+**Result**: Viral growth through incentivized referrals
+
+---
+
+### Use Case 14: B2B Price Protection
+
+**Scenario**: Distributor protecting customer profits during market volatility
+
+**Configuration**:
+```
+Customer: Regional Distributor ABC
+Product: Commodity Component
+
+Protection Agreement:
+├─ Period: Q2 2024 (90 days)
+├─ Base Price: $50/unit
+├─ Price Cap: $52/unit (max +4%)
+├─ Price Floor: $48/unit (min -4%)
+
+Market Conditions:
+├─ If market price rises to $60:
+│  └─ Customer still pays: $52 (capped)
+│  └─ You absorb extra cost (margin compression)
+│
+└─ If market price drops to $40:
+   └─ Customer still pays: $48 (floored)
+   └─ You capture extra margin
+
+Renegotiation:
+└─ Automatic review if market moves >10% from base
+```
+
+**Result**: Protects customer relationships during volatile markets
+
+---
+
+### Use Case 15: Multi-Currency Pricing
+
+**Scenario**: International E-commerce with real-time currency conversion
+
+**Configuration**:
+```
+Base Product: Premium Laptop
+Base Currency: USD
+Base Price: $1,500
+
+Currency Conversion Rules:
+├─ EUR: $1,500 ÷ 1.08 = €1,389
+├─ GBP: $1,500 ÷ 1.27 = £1,181
+├─ JPY: $1,500 × 148.5 = ¥222,750
+├─ AUD: $1,500 × 1.52 = A$2,280
+└─ CAD: $1,500 × 1.36 = C$2,040
+
+Local Markup/Markdown:
+├─ EUR Markets: +3% (VAT considerations)
+├─ UK Market: +2% (import duties)
+├─ Japan: -5% (market competition)
+└─ Australia: +8% (remote market premium)
+
+Final Prices:
+├─ EUR: €1,431 (1,389 × 1.03)
+├─ GBP: £1,205 (1,181 × 1.02)
+├─ JPY: ¥211,612 (222,750 × 0.95)
+└─ AUD: A$2,462 (2,280 × 1.08)
+```
+
+**Result**: Localized pricing reflecting local market conditions
+
+---
+
+### Use Case 16: Inventory-Driven Pricing
+
+**Scenario**: Retail managing excess inventory through dynamic pricing
+
+**Configuration**:
+```
+Product: Winter Coat
+SKU: WC-2024-001
+
+Base Price: $199
+
+Inventory Management Triggers:
+
+Stock Level: >500 units
+├─ Status: Healthy inventory
+├─ Adjustment: Base Price
+└─ Days until restock: 90+
+
+Stock Level: 200-500 units
+├─ Status: Normal
+├─ Adjustment: Base Price
+└─ Action: Standard replenishment
+
+Stock Level: 50-199 units
+├─ Status: Low inventory
+├─ Adjustment: Base Price (+5%)
+├─ Reason: Premium scarcity pricing
+└─ Message: "Only X left in stock!"
+
+Stock Level: <50 units
+├─ Status: Critical/Clearance
+├─ Adjustment: -40% (Dynamic discount)
+├─ Goal: Quick clearance before next season
+└─ Message: "Final sale - 60% off!"
+
+Seasonal End Date: Jan 31
+├─ <30 days remaining: -50%
+├─ <14 days remaining: -60%
+└─ <7 days remaining: -70%
+```
+
+**Result**: Automatically optimizes pricing to maintain inventory balance
+
+---
+
+### Use Case 17: Competitive Price Matching
+
+**Scenario**: Retailer matching competitor pricing automatically
+
+**Configuration**:
+```
+Product: 4K Television Model X-850
+
+Retail Price List: $799
+
+Competitor Pricing Feed (Daily Update):
+├─ Competitor A: $749
+├─ Competitor B: $779
+├─ Competitor C: $789
+└─ Competitor D: $769
+
+Price Matching Rules:
+├─ Match lowest competitor: Enabled
+├─ Match +/-: -$10 (beat competitor by $10)
+├─ Minimum Price Floor: $600 (cost + 10%)
+├─ Update Frequency: Real-time
+└─ Notification: Price adjustment logged
+
+Calculated Price:
+├─ Lowest competitor price: $749
+├─ Our match price: $749 - $10 = $739
+├─ Above minimum floor: Yes ✓
+└─ Final Price: $739 (automatically updated)
+
+Business Rules:
+├─ Don't advertise "lowest price guarantee"
+├─ Only match 3 major competitors
+├─ Exclude loss-leader products
+└─ Manual override capability
+```
+
+**Result**: Competitive pricing without constant manual adjustments
+
+---
+
+### Use Case 18: Customer Segment Pricing
+
+**Scenario**: B2B company with distinct customer segments
+
+**Configuration**:
+```
+Product: Enterprise Software License
+List Price: $250,000/year
+
+Segment 1: Startup/SMB
+├─ Revenue Profile: <$50M
+├─ Discount: 40% off list
+├─ Price: $150,000/year
+├─ Support: Standard (8x5)
+└─ Onboarding: Self-service
+
+Segment 2: Mid-Market
+├─ Revenue Profile: $50M-$500M
+├─ Discount: 25% off list
+├─ Price: $187,500/year
+├─ Support: Premium (24x7)
+└─ Onboarding: Guided (2 weeks)
+
+Segment 3: Enterprise
+├─ Revenue Profile: $500M+
+├─ Discount: 15% off list
+├─ Price: $212,500/year
+├─ Support: Premium (24x7) + Named Account Manager
+├─ Onboarding: Full deployment (6 weeks)
+└─ Custom features: Available
+
+Segment 4: Non-Profit/Government
+├─ Discount: 60% off list
+├─ Price: $100,000/year
+├─ Support: Standard
+└─ Custom deployment: Available
+```
+
+**Result**: Pricing optimized for each customer segment's value perception
+
+---
+
+### Use Case 19: Usage-Based Pricing
+
+**Scenario**: Cloud platform charging based on consumption
+
+**Configuration**:
+```
+Platform: Cloud Analytics Service
+
+Base Pricing:
+├─ Monthly Subscription: $500 (includes 1M API calls)
+
+Usage Tiers (per month):
+├─ 1-1M API calls: Included in subscription
+├─ 1M-10M calls: +$0.50 per 1000 calls
+├─ 10M-50M calls: +$0.35 per 1000 calls
+├─ 50M+ calls: +$0.20 per 1000 calls
+
+Data Storage:
+├─ First 100GB: Included
+├─ 100GB-1TB: +$0.10/GB
+├─ 1TB-10TB: +$0.05/GB
+└─ 10TB+: +$0.02/GB
+
+Overage Protection:
+├─ Hard cap available: Yes (stop processing at limit)
+├─ Alert at 80% threshold: Yes
+├─ Grace period: 10% overage allowed per month
+└─ Auto-billing: At end of month
+
+Example Month:
+├─ Base: $500
+├─ API calls: 25M (exceeds by 24M)
+│  └─ Cost: (10M × $0.50) + (14M × $0.35) = $9,900
+├─ Storage: 500GB
+│  └─ Cost: 100GB free + (400GB × $0.05) = $20
+└─ Total: $10,420
+```
+
+**Result**: Fair pricing that scales with customer usage
+
+---
+
+### Use Case 20: Channel Partner Margin Management
+
+**Scenario**: Manufacturer managing margins across channel partners
+
+**Configuration**:
+```
+Product: Industrial Equipment
+Manufacturer Cost: $8,000
+
+Pricing Tier Structure:
+
+Direct Sales (Manufacturer):
+├─ List Price: $14,000
+├─ Margin: 75% ($6,000)
+└─ Channel: Direct to End-User
+
+Authorized Distributor:
+├─ Wholesale Price: $10,500
+├─ Margin: 31% ($3,500)
+├─ Min Retail Suggestion: $14,000
+└─ Max Discount: 10% ($1,400)
+
+Certified Reseller:
+├─ Wholesale Price: $11,200
+├─ Margin: 40% ($3,200)
+├─ Min Retail Suggestion: $14,000
+└─ Max Discount: 5% ($700)
+
+Systems Integrator:
+├─ Wholesale Price: $9,800
+├─ Margin: 22.5% ($1,800)
+├─ Service bundle bundled pricing
+└─ Custom quotes available
+
+Margin Protection Rules:
+├─ Distributor cannot sell below $10,500
+├─ Reseller cannot sell below $11,200
+├─ Integrator custom quotes approved by mgmt
+├─ Price monitoring: Monthly
+└─ Violations trigger: Channel rep contact
+
+Volume Incentives (Annual):
+├─ $500K-$1M revenue: 1% rebate
+├─ $1M-$2M revenue: 2% rebate
+├─ $2M+ revenue: 3% rebate
+└─ Auto-calculated quarterly
+```
+
+**Result**: Healthy partner margins while protecting brand pricing
+
+---
+
+### Summary of Use Cases
+
+| # | Use Case | Type | Primary Benefit |
+|----|----------|------|-----------------|
+| 1 | Multi-Tier B2B Volume | B2B | Incentivizes bulk orders |
+| 2 | Dynamic E-Commerce | Retail | Maximizes revenue/margin |
+| 3 | Geographic Variation | Global | Localizes pricing strategy |
+| 4 | Loyalty Pricing | CRM | Rewards customer retention |
+| 5 | Bundle/Mix & Match | Retail | Increases basket size |
+| 6 | Seasonal Pricing | Retail | Optimizes inventory |
+| 7 | Contract Pricing | B2B | Secures long-term revenue |
+| 8 | Cost-Plus Formulas | Manufacturing | Ensures margin floors |
+| 9 | Subscription Tiers | SaaS | Encourages commitment |
+| 10 | Flash Sales | Retail | Drives urgency/traffic |
+| 11 | Channel Pricing | Multi-Channel | Channel-appropriate margins |
+| 12 | Trade Deals | B2B | Maintains trade relationships |
+| 13 | Referral Pricing | Growth | Incentivizes advocacy |
+| 14 | Price Protection | B2B | Protects partnerships |
+| 15 | Multi-Currency | Global | Supports international sales |
+| 16 | Inventory-Driven | Retail | Balances stock levels |
+| 17 | Competitive Matching | Retail | Maintains competitiveness |
+| 18 | Segment Pricing | B2B/SaaS | Optimizes value capture |
+| 19 | Usage-Based | SaaS | Fair consumption pricing |
+| 20 | Partner Margins | Distribution | Protects channel health |
+
+---
+
 ## Summary
 
 Unified Pricing Management in Dynamics 365 provides a centralized, flexible platform for managing complex pricing across multiple channels and customer segments. By following these setup guidelines and best practices, organizations can:
@@ -663,8 +1342,10 @@ Unified Pricing Management in Dynamics 365 provides a centralized, flexible plat
 
 The system's multi-channel architecture ensures consistency while allowing channel-specific customization, making it ideal for organizations with complex, distributed pricing needs.
 
+The 20 use cases provided demonstrate the system's versatility in handling diverse business scenarios, from simple B2B volume discounts to complex subscription-based pricing and real-time inventory management.
+
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: April 22, 2026  
-**Status**: Complete
+**Document Version**: 2.0  
+**Last Updated**: April 23, 2026  
+**Status**: Complete with 20 Real-World Use Cases
